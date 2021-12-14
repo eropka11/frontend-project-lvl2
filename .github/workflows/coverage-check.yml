@@ -1,0 +1,15 @@
+name: coverage check
+on: push
+jobs:
+  check:
+      runs-on: ubuntu-latest
+      steps:
+      - name: run coverage
+        uses: npx jest --coverage
+
+      - name: publish code coverage to code-climate (duh)
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: 606ef8346be720c10b6ab4c3b44232fb9c544d89db9f184ada16e78f8a54cc87
+        with:
+          debug: true
