@@ -1,8 +1,8 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/eropka11/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/eropka11/frontend-project-lvl2/actions)",
-  "main": "./bin/gendiff.js",
+  "description": "",
+  "main": "bin/gendiff.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/eropka11/frontend-project-lvl2#readme",
   "type": "module",
+  "bin": "bin/gendiff.js",
   "dependencies": {
     "commander": "^8.3.0",
     "eslint": "^8.4.1",
@@ -25,10 +26,8 @@
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
   },
-  "bin": {
-    "gendiff": "bin/gendiff.js"
-  },
   "devDependencies": {
-    "jest": "^27.4.3"
+    "eslint-plugin-jest": "^25.3.0",
+    "jest": "^27.4.4"
   }
 }

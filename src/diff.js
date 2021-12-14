@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const diff = (tree1, tree2) => {
   const names1 = tree1.map((element) => element.name);
   const names2 = tree2.map((element) => element.name);
@@ -56,23 +58,8 @@ const diff = (tree1, tree2) => {
     }
     return element;
   });
-  const compare = (a, b) => {
-    if (Array.isArray(a.children)) {
-      a.children.sort(compare);
-    }
-    if (a.name > b.name) {
-      return 1;
-    }
-    if (a.name < b.name) {
-      return -1;
-    }
-    if (a.prefix === '- ') {
-      return 1;
-    }
-    return 0;
-  };
-  result.sort(compare);
-  return result;
+  const sortedResult = _.sortBy(result, 'name');
+  return sortedResult;
 };
 
 export default diff;
