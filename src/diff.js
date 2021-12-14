@@ -1,20 +1,20 @@
 import _ from 'lodash';
 
+const prefixCorrecter = (children) => {
+  if (Array.isArray(children)) {
+    const correctedChildren = children.map((child) => {
+      const correctedChild = { ...child };
+      correctedChild.prefix = '  ';
+      correctedChild.children = prefixCorrecter(correctedChild.children);
+      return correctedChild;
+    });
+    return correctedChildren;
+  }
+  return children;
+};
 const diff = (tree1, tree2) => {
   const names1 = tree1.map((element) => element.name);
   const names2 = tree2.map((element) => element.name);
-  const prefixCorrecter = (children) => {
-    if (Array.isArray(children)) {
-      const correctedChildren = children.map((child) => {
-        const correctedChild = { ...child };
-        correctedChild.prefix = '  ';
-        correctedChild.children = prefixCorrecter(correctedChild.children);
-        return correctedChild;
-      });
-      return correctedChildren;
-    }
-    return children;
-  };
   const result = tree1.flatMap((currentElement) => {
     if (!names2.includes(currentElement.name)) {
       const correctedCurrentElement = { ...currentElement };
