@@ -1,15 +1,103 @@
-name: coverage check
-on: push
-jobs:
-  check:
-      runs-on: ubuntu-latest
-      steps:
-      - name: run coverage
-        uses: npx jest --coverage
+# Name of workflow
+name: Node CI
 
-      - name: publish code coverage to code-climate (duh)
-        uses: eropka11/frontend-project-lvl2
+# Trigger the workflow on push or pull request
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+
+    # The type of machine to run the job on
+    runs-on: ubuntu-latest
+
+    strategy:
+      # Node versions list
+      matrix:
+        node-version: [14.x]
+
+    steps:
+        # Check-out repository under GitHub workspace
+        # https://github.com/actions/checkout
+      - uses: actions/checkout@v2
+        # Step's name
+      - name: Use Node.js ${{ matrix.node-version }}
+        # Configures the node version used on GitHub-hosted runners
+        # https://github.com/actions/setup-node
+        uses: actions/setup-node@v1
+        # The Node.js version to configure
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm install
+        # Install project
+        run: |
+          make install
+        # Add environment variables
+        env:
+          CI: true
+      - name: Run linter
+        # Run Linter
+        run: |
+          make lint
+      - name: Test & publish code coverage
+        # Publish code coverage on Code Climate
+        # https://github.com/paambaati/codeclimate-action
+        uses: paambaati/codeclimate-action@v2.7.4
+        # Add Code Climate secret key
+        env:
+          CC_TEST_REPORTER_ID: # Name of workflow
+name: Node CI
+
+# Trigger the workflow on push or pull request
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+
+    # The type of machine to run the job on
+    runs-on: ubuntu-latest
+
+    strategy:
+      # Node versions list
+      matrix:
+        node-version: [14.x]
+
+    steps:
+        # Check-out repository under GitHub workspace
+        # https://github.com/actions/checkout
+      - uses: actions/checkout@v2
+        # Step's name
+      - name: Use Node.js ${{ matrix.node-version }}
+        # Configures the node version used on GitHub-hosted runners
+        # https://github.com/actions/setup-node
+        uses: actions/setup-node@v1
+        # The Node.js version to configure
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm install
+        # Install project
+        run: |
+          make install
+        # Add environment variables
+        env:
+          CI: true
+      - name: Run linter
+        # Run Linter
+        run: |
+          make lint
+      - name: Test & publish code coverage
+        # Publish code coverage on Code Climate
+        # https://github.com/paambaati/codeclimate-action
+        uses: paambaati/codeclimate-action@v2.7.4
+        # Add Code Climate secret key
         env:
           CC_TEST_REPORTER_ID: 606ef8346be720c10b6ab4c3b44232fb9c544d89db9f184ada16e78f8a54cc87
         with:
+          coverageCommand: make test-coverage
+          debug: true
+        with:
+          coverageCommand: make test-coverage
           debug: true
