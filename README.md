@@ -4,3 +4,4 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/80b465419344f51d16ed/test_coverage)](https://codeclimate.com/github/eropka11/frontend-project-lvl2/test_coverage)
 [![asciicast](https://asciinema.org/a/439815.svg)](https://asciinema.org/a/439815)
 [![asciicast](https://asciinema.org/a/455999.svg)](https://asciinema.org/a/455999)
+[![asciicast](https://asciinema.org/a/456927.svg)](https://asciinema.org/a/456927)

@@ -24,6 +24,7 @@ const diff = (tree1, tree2) => {
     const element = {};
     element.name = currentElement.name;
     element.prefix = '  ';
+    element.path = currentElement.path;
     const child1 = currentElement.children;
     const filtred = tree2.filter((element2) => Object.is(element2.name, currentElement.name))[0];
     const child2 = filtred.children;
@@ -39,6 +40,7 @@ const diff = (tree1, tree2) => {
       element.children = prefixCorrecter(child1);
       const element2 = {};
       element2.name = element.name;
+      element2.path = element.path;
       element2.prefix = '+ ';
       element2.children = prefixCorrecter(child2);
       return [element, element2];
