@@ -1,4 +1,4 @@
-import stylish from '../src/stylish.js';
+import stylish from '../src/formatters/stylish.js';
 import { resultForDiff, resultForStylish } from '../__fixtures__/resultsForTests';
 
 test('stylish', () => {
