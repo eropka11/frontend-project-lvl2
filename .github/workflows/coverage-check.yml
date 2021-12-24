@@ -26,7 +26,7 @@ jobs:
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.7.4
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          CC_TEST_REPORTER_ID: 606ef8346be720c10b6ab4c3b44232fb9c544d89db9f184ada16e78f8a54cc87
         with:
           coverageCommand: npx jest --coverage
           debug: true
