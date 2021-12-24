@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/eropka11/frontend-project-lvl2#readme",
   "type": "module",
-  "bin": "bin/gendiff.js",
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
   "dependencies": {
     "commander": "^8.3.0",
     "eslint": "^8.4.1",
