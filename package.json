@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "",
-  "main": "bin/gendiff.js",
+  "main": "src/formatters/index.js",
   "scripts": {
     "test": "npx jest"
   },
