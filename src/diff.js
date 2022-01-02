@@ -9,13 +9,7 @@ const makeElement = (elementName, prefix, path, children) => {
 
 const prefixCorrecter = (children) => {
   if (Array.isArray(children)) {
-    const correctedChildren = children.map((child) => {
-      const correctedChild = { ...child };
-      correctedChild.prefix = '  ';
-      correctedChild.children = prefixCorrecter(correctedChild.children);
-      return correctedChild;
-    });
-    return correctedChildren;
+    return children.map((child) => makeElement(child.name, '  ', child.path, prefixCorrecter(child.children)));
   }
   return children;
 };
@@ -24,9 +18,8 @@ const diff = (tree1, tree2) => {
   const names2 = tree2.map((element) => element.name);
   const result1 = tree1.flatMap((currentElement) => {
     if (!names2.includes(currentElement.name)) {
-      const correctedCurrentElement = { ...currentElement };
-      correctedCurrentElement.children = prefixCorrecter(currentElement.children);
-      return correctedCurrentElement;
+      const newChild = prefixCorrecter(currentElement.children);
+      return makeElement(currentElement.name, currentElement.prefix, currentElement.path, newChild);
     }
     const child1 = currentElement.children;
     const filtred = tree2.filter((element2) => Object.is(element2.name, currentElement.name))[0];

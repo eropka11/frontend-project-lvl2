@@ -1,23 +1,25 @@
 import _ from 'lodash';
 
+const makeElement = (elementName, prefix, path, children) => {
+  const element = {
+    name: elementName, prefix, path, children,
+  };
+  return element;
+};
+
 const makeAST = (file, prefix, parent) => {
   const keys = Object.keys(file);
   const result = keys.map((key) => {
-    const element = {};
-    element.name = key;
-    element.prefix = prefix;
-    if (parent !== '') {
-      element.path = `${parent}.${key}`;
-    } else {
-      element.path = key;
-    }
     if (_.isPlainObject(file[key])) {
-      element.children = (makeAST(file[key], prefix, element.path));
+      if (parent !== '') {
+        return makeElement(key, prefix, `${parent}.${key}`, makeAST(file[key], prefix, `${parent}.${key}`));
+      }
+      return makeElement(key, prefix, key, makeAST(file[key], prefix, key));
     }
-    if (!_.isPlainObject(file[key])) {
-      element.children = file[key];
+    if (parent !== '') {
+      return makeElement(key, prefix, `${parent}.${key}`, file[key]);
     }
-    return element;
+    return makeElement(key, prefix, key, file[key]);
   });
   return result;
 };
