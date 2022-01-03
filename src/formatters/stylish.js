@@ -1,21 +1,20 @@
-const stylish = (diff, i) => {
+const spacesCounter = (path) => {
+  const arrayedPath = path.split('');
+  const result = arrayedPath.filter((letter) => letter === '.').length;
+  return result;
+};
+
+const stylish = (diff) => {
   const result = diff.reduce((acc, element) => {
-    const string = [];
-    string.push('\n  ');
-    string.push('    '.repeat(i));
-    string.push(element.prefix);
-    string.push(element.name);
     if (Array.isArray(element.children)) {
-      i += 1;
-      string.push(': ');
-      string.push(stylish(element.children, i));
+      const string = ['\n  ', '    '.repeat(spacesCounter(element.path)), element.prefix, element.name, ': ', stylish(element.children)];
       if (string[-1] !== '}') {
-        string.push(`\n${'    '.repeat(i)}}`);
-        i -= 1;
+        const closedString = ['\n  ', '    '.repeat(spacesCounter(element.path)), element.prefix, element.name, ': ', stylish(element.children), `\n${'    '.repeat(spacesCounter(`.${element.path}`))}}`];
+        return acc + closedString.join('');
       }
-    } else {
-      string.push(`: ${element.children}`);
+      return acc + string.join('');
     }
+    const string = ['\n  ', '    '.repeat(spacesCounter(element.path)), element.prefix, element.name, `: ${element.children}`];
     return acc + string.join('');
   }, '{');
   return result;

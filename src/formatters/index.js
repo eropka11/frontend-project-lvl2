@@ -26,5 +26,5 @@ export default (filepath1, filepath2, formatter) => {
   if (formatter === 'json') {
     return JSON.stringify(json(difference));
   }
-  return `${stylish(difference, 0)}\n}`;
+  return `${stylish(difference)}\n}`;
 };
