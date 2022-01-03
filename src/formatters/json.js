@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const isInArray = (elementToCheck, array) => {
   const eName = elementToCheck.name;
   const ePrefix = elementToCheck.prefix;
@@ -16,40 +18,35 @@ const json = (diff) => {
         const elementToReturn = {
           prefix: element.prefix, path: element.path, children: json(element.children),
         };
-        acc = Object.assign(acc, { [elementName]: elementToReturn });
-        return acc;
+        return _.assign(acc, { [elementName]: elementToReturn });
       }
       const elementToReturn = {
         prefix: element.prefix, path: element.path, children: element.children,
       };
-      acc = Object.assign(acc, { [elementName]: elementToReturn });
-      return acc;
+      return _.assign(acc, { [elementName]: elementToReturn });
     }
     if (element.prefix === '- ') {
       if (Array.isArray(element.children)) {
         const elementToReturn = {
           before: { prefix: element.prefix, path: element.path, children: json(element.children) },
         };
-        acc = Object.assign(acc, { [elementName]: elementToReturn });
-        return acc;
+        return _.assign(acc, { [elementName]: elementToReturn });
       }
       const elementToReturn = {
         before: { prefix: element.prefix, path: element.path, children: element.children },
       };
-      acc = Object.assign(acc, { [elementName]: elementToReturn });
-      return acc;
+      return _.assign(acc, { [elementName]: elementToReturn });
     }
     if (Array.isArray(element.children)) {
       const elementToReturn = {
         after: { prefix: element.prefix, path: element.path, children: json(element.children) },
       };
-      acc = Object.assign(acc[elementName], elementToReturn);
-      return acc;
+      return _.assign(acc[elementName], elementToReturn);
     }
     const elementToReturn = {
       after: { prefix: element.prefix, path: element.path, children: element.children },
     };
-    Object.assign(acc[elementName], elementToReturn);
+    _.assign(acc[elementName], elementToReturn);
     return acc;
   }, {});
   return result;
