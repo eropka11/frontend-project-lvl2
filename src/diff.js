@@ -1,11 +1,5 @@
 import _ from 'lodash';
-
-const makeElement = (elementName, prefix, path, children) => {
-  const element = {
-    name: elementName, prefix, path, children,
-  };
-  return element;
-};
+import { makeElement } from './makeAST.js';
 
 const prefixCorrecter = (children) => {
   if (Array.isArray(children)) {

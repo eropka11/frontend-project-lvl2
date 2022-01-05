@@ -6,12 +6,10 @@ const parser = (filePath) => {
   const fileFormats = ['.json', '.yaml', '.yml'];
   if (!fileFormats.includes(path.extname(filePath))) {
     const result = 'Wrong file format';
-    console.log(result);
     return result;
   }
   if (!fs.existsSync(filePath)) {
     const result = 'File(s) is not exist';
-    console.log(result);
     return result;
   }
   if (path.extname(filePath) === '.json') {

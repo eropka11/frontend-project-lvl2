@@ -25,3 +25,4 @@ const makeAST = (file, prefix, parent) => {
 };
 
 export default makeAST;
+export { makeElement };
