@@ -8,10 +8,12 @@ const prefixCorrecter = (children) => {
   return children;
 };
 const diff = (tree1, tree2) => {
-  const names1 = tree1.map((element) => element.name);
-  const names2 = tree2.map((element) => element.name);
+  const names = {
+    names1: tree1.map((element) => element.name),
+    names2: tree2.map((element) => element.name),
+  };
   const result1 = tree1.flatMap((currentElement) => {
-    if (!names2.includes(currentElement.name)) {
+    if (!names.names2.includes(currentElement.name)) {
       const newChild = prefixCorrecter(currentElement.children);
       return makeElement(currentElement.name, currentElement.prefix, currentElement.path, newChild);
     }
@@ -32,7 +34,7 @@ const diff = (tree1, tree2) => {
     return currentElement;
   });
   const result2 = tree2.flatMap((element) => {
-    if (!names1.includes(element.name)) {
+    if (!names.names1.includes(element.name)) {
       if (Array.isArray(element.children)) {
         const newChild = prefixCorrecter(element.children);
         return makeElement(element.name, element.prefix, element.path, newChild);
